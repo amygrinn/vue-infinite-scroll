@@ -6,12 +6,12 @@
 
 ### Node
 
-```npm i --save @tygrinn/vue-infinite-scroll```
+```npm i --save @tygr/vue-infinite-scroll```
 
 Register the component:
 
 ```javascript
-import InfiniteScroll from '@tygrinn/vue-infinite-scroll';
+import InfiniteScroll from '@tygr/vue-infinite-scroll';
 
 export default {
   components: {
@@ -24,7 +24,7 @@ export default {
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script src="https://unpkg.com/@tygrinn/vue-infinite-scroll/dist/vue-infinite-scroll.min.js"></script>
+<script src="https://unpkg.com/@tygr/vue-infinite-scroll/dist/vue-infinite-scroll.min.js"></script>
 <script>
   // Register the plugin globally
   Vue.use(InfiniteScroll.default)

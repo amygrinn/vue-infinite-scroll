@@ -1,14 +1,15 @@
 {
-  "name": "@tygrinn/vue-infinite-scroll",
+  "name": "@tygr/vue-infinite-scroll",
   "version": "1.0.0",
   "description": "Infinite scroll component for VueJS",
   "main": "dist/vue-infinite-scroll.js",
   "scripts": {
-    "build": "rimraf dist && webpack"
+    "build": "rimraf dist && webpack",
+    "publish": "npm publish --access public"
   },
   "repository": {
     "type": "git",
-    "url": "https://git.tygr.info/tygrinn/infinite-scroll.git"
+    "url": "https://github.com/tylergrinn/vue-infinite-scroll"
   },
   "keywords": [
     "infinite",
