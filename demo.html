@@ -1,0 +1,80 @@
+<html>
+<body>
+  <div id="app">
+    <h2>Top to Bottom Infinite Scroll</h2>
+    <infinite-scroll @load-more="loadMore('down')">
+      
+      <div v-for="i in down.numElements">Element: {{ i }}</div>
+      <div v-if="down.loading">Loading...</div>
+    </infinite-scroll>
+
+    <h2>Left to Right Infinite Scroll</h2>
+    <infinite-scroll
+      @load-more="loadMore('right')" direction="right">
+      
+      <div v-for="i in right.numElements">Element: {{ i }}</div>
+      <div v-if="right.loading">Loading...</div>
+    </infinite-scroll>
+
+    <h2>Bottom to Top Infinite Scroll</h2>
+    <infinite-scroll 
+      @load-more="loadMore('up')" direction="up">
+    
+      <div v-for="i in up.numElements">Element: {{ i }}</div>
+      <div v-if="up.loading">Loading...</div>
+    </infinite-scroll>
+
+    <h2>Right to Left Infinite Scroll</h2>
+    <infinite-scroll
+      @load-more="loadMore('left')" direction="left">
+    
+      <div v-for="i in left.numElements">Element: {{ i }}</div>
+      <div v-if="left.loading">Loading...</div>
+    </infinite-scroll>
+
+  </div>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script type="text/javascript" src="dist/vue-infinite-scroll.min.js"></script>
+  <script type="text/javascript">
+
+    Vue.use(InfiniteScroll.default);
+
+    new Vue({
+      el: '#app',
+      data: {
+        down: {
+          numElements: 50,
+          loading: false
+        },
+        up: {
+          numElements: 50,
+          loading: false
+        },
+        right: {
+          numElements: 50,
+          loading: false
+        },
+        left: {
+          numElements: 50,
+          loading: false
+        }
+      },
+      methods: {
+        loadMore(direction) {
+          if(!this[direction].loading) {
+            console.log('loading more...');
+            this[direction].loading = true;
+            setTimeout(
+              () => {
+                this[direction].numElements += 50
+                this[direction].loading = false;
+              },
+              2000
+            );
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
