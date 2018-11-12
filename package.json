@@ -1,6 +1,6 @@
 {
   "name": "@tygr/vue-infinite-scroll",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Infinite scroll component for VueJS",
   "main": "dist/vue-infinite-scroll.js",
   "scripts": {
@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.5",
     "babel-loader": "^8.0.4",
     "css-loader": "^1.0.1",
     "rimraf": "^2.6.2",
