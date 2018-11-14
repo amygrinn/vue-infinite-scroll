@@ -84,10 +84,10 @@ export default {
       switch(this.direction) {
         case 'down':
         case 'up':
-          return this.$el.clientHeight <= this.$el.scrollHeight;
+          return this.$el.clientHeight < this.$el.scrollHeight;
         case 'right':
         case 'left':
-          return this.$el.clientWidth <= this.$el.scrollWidth;
+          return this.$el.clientWidth < this.$el.scrollWidth;
         default: return true;
       }
     }
@@ -99,7 +99,7 @@ export default {
         throttleTime(this.throttleTime),
         tap(() => this.$emit('load-more'))
       ),
-    noScroll: timer(1000)
+    noScroll: timer(1000, 1000)
       .pipe(
         filter(() => !this.hasScrollbar()),
         tap(() => this.$emit('load-more'))

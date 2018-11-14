@@ -34,7 +34,7 @@
 
   </div>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  <script type="text/javascript" src="https://unpkg.com/@tygr/vue-infinite-scroll/dist/vue-infinite-scroll.min.js"></script>
+  <script type="text/javascript" src="dist/vue-infinite-scroll.min.js"></script>
   <script type="text/javascript">
 
     Vue.use(InfiniteScroll.default);
@@ -43,19 +43,19 @@
       el: '#app',
       data: {
         down: {
-          numElements: 50,
+          numElements: 3,
           loading: false
         },
         up: {
-          numElements: 50,
+          numElements: 3,
           loading: false
         },
         right: {
-          numElements: 50,
+          numElements: 3,
           loading: false
         },
         left: {
-          numElements: 50,
+          numElements: 3,
           loading: false
         }
       },
