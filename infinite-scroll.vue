@@ -37,7 +37,7 @@
 </style>
 
 <script>
-import { Subject } from 'rxjs';
+import { Subject, timer } from 'rxjs';
 import { filter, tap, throttleTime } from 'rxjs/operators';
 
 import Vue from 'vue';
@@ -79,6 +79,17 @@ export default {
           return this.$el.scrollLeft <= this.minDistance;
         default: return false;
       }
+    },
+    hasScrollbar() {
+      switch(this.direction) {
+        case 'down':
+        case 'up':
+          return this.$el.clientHeight <= this.$el.scrollHeight;
+        case 'right':
+        case 'left':
+          return this.$el.clientWidth <= this.$el.scrollWidth;
+        default: return true;
+      }
     }
   },
   subscriptions() { return {
@@ -86,6 +97,11 @@ export default {
       .pipe(
         filter(this.reachedBottom),
         throttleTime(this.throttleTime),
+        tap(() => this.$emit('load-more'))
+      ),
+    noScroll: timer(1000)
+      .pipe(
+        filter(() => !this.hasScrollbar()),
         tap(() => this.$emit('load-more'))
       )
   }}

@@ -1,6 +1,6 @@
 {
   "name": "@tygr/vue-infinite-scroll",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Infinite scroll component for VueJS",
   "main": "dist/vue-infinite-scroll.js",
   "scripts": {
