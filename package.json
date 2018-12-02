@@ -1,8 +1,9 @@
 {
   "name": "@tygr/vue-infinite-scroll",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "Infinite scroll component for VueJS",
   "main": "dist/vue-infinite-scroll.js",
+  "types": "index.d.ts",
   "scripts": {
     "build": "rimraf dist && webpack",
     "publish": "npm publish --access public"
@@ -18,25 +19,28 @@
     "endless"
   ],
   "files": [
+    "index.d.ts",
     "dist"
   ],
   "author": "Tyler Grinn",
   "license": "MIT",
   "dependencies": {
     "rxjs": "^6.3.3",
-    "vue": "^2.5.17",
     "vue-rx": "^6.0.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.1.2",
-    "@babel/preset-env": "^7.1.5",
+    "@babel/core": "^7.1.6",
+    "@babel/preset-env": "^7.1.6",
     "babel-loader": "^8.0.4",
     "css-loader": "^1.0.1",
     "rimraf": "^2.6.2",
     "style-loader": "^0.23.1",
+    "ts-loader": "^5.3.1",
+    "typescript": "^3.2.1",
+    "vue": "^2.5.17",
     "vue-loader": "^15.4.2",
     "vue-template-compiler": "^2.5.17",
-    "webpack": "^4.25.1",
+    "webpack": "^4.26.1",
     "webpack-cli": "^3.1.2",
     "webpack-merge": "^4.1.4",
     "webpack-node-externals": "^1.7.2"

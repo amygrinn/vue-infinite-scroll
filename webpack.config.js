@@ -10,6 +10,25 @@ const common = {
   module: {
     rules: [
       {
+        test: /\.vue$/,
+        loader: 'vue-loader'
+      },
+      {
+        test: /\.css$/,
+        use:['style-loader','css-loader']
+      },
+      {
+        test: /\.ts$/,
+        use: [
+          {
+            loader: 'ts-loader',
+            options: {
+              transpileOnly: true
+            }
+          }
+        ]
+      },
+      {
         test: /\.js$/,
         include: __dirname,
         exclude: /node_modules/,
@@ -20,15 +39,10 @@ const common = {
           }
         }
       },
-      {
-        test: /\.vue$/,
-        loader: 'vue-loader'
-      },
-      {
-        test: /\.css$/,
-        use:['style-loader','css-loader']
-      }
     ]
+  },
+  resolve: {
+    extensions: [ '.ts', '.ts', '.js', '.vue' ]
   },
   optimization: {
     minimize: true
@@ -41,8 +55,8 @@ const common = {
 
 module.exports = [
   merge(common, {
-    entry: './plugin.js',
-    output: { 
+    entry: './plugin.ts',
+    output: {
       filename: 'vue-infinite-scroll.min.js',
       libraryTarget: 'window',
       library: 'InfiniteScroll'

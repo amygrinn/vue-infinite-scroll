@@ -36,7 +36,8 @@
 
 </style>
 
-<script>
+<script lang="ts">
+
 import { Subject, timer } from 'rxjs';
 import { filter, tap, throttleTime } from 'rxjs/operators';
 
@@ -45,30 +46,22 @@ import VueRx from 'vue-rx';
 
 Vue.use(VueRx);
 
-export default {
-  props: {
-    direction: {
-      type: String,
-      default: 'down',
-      required: false
-    },
-    minDistance: {
-      type: Number,
-      default: 10,
-      required: false
-    },
-    throttleTime: {
-      type: Number,
-      default: 1000,
-      required: false
-    }
-  },
+declare module 'vue/types/vue' {
+  interface Vue {
+    scroll$: Subject<void>;
+    reachedBottom: () => boolean;
+    hasScrollbar: () => boolean;
+    throttleTime: number;
+  }
+}
+
+export default Vue.extend({
   data: () => ({
-    scroll$: new Subject()
+    scroll$: new Subject(),
   }),
   methods: {
-    reachedBottom() {
-      switch(this.direction) {
+    reachedBottom(): boolean {
+      switch (this.direction) {
         case 'down':
           return this.$el.scrollTop + this.$el.clientHeight >= this.$el.scrollHeight - this.minDistance;
         case 'up':
@@ -80,8 +73,8 @@ export default {
         default: return false;
       }
     },
-    hasScrollbar() {
-      switch(this.direction) {
+    hasScrollbar(): boolean {
+      switch (this.direction) {
         case 'down':
         case 'up':
           return this.$el.clientHeight < this.$el.scrollHeight;
@@ -90,20 +83,37 @@ export default {
           return this.$el.clientWidth < this.$el.scrollWidth;
         default: return true;
       }
-    }
+    },
+  },
+  props: {
+    direction: {
+      default: 'down',
+      required: false,
+      type: String,
+    },
+    minDistance: {
+      default: 10,
+      required: false,
+      type: Number,
+    },
+    throttleTime: {
+      default: 1000,
+      required: false,
+      type: Number,
+    },
   },
   subscriptions() { return {
     loadMore: this.scroll$
       .pipe(
         filter(this.reachedBottom),
         throttleTime(this.throttleTime),
-        tap(() => this.$emit('load-more'))
+        tap(() => this.$emit('load-more')),
       ),
     noScroll: timer(1000, 1000)
       .pipe(
         filter(() => !this.hasScrollbar()),
-        tap(() => this.$emit('load-more'))
-      )
-  }}
-}
+        tap(() => this.$emit('load-more')),
+      ),
+  }; },
+});
 </script>
