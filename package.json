@@ -44,6 +44,8 @@
     "webpack-node-externals": "^1.7.2"
   },
   "peerDependencies": {
-    "vue": "~2.5.20"
+    "rxjs": "~6.3.3",
+    "vue": "~2.5.20",
+    "vue-rx": "~6.0.1"
   }
 }
