@@ -41,7 +41,7 @@
 import { Subject, timer } from 'rxjs';
 import { filter, tap, throttleTime } from 'rxjs/operators';
 
-import Vue from 'vue';
+import Vue, { VueConstructor } from 'vue';
 import VueRx from 'vue-rx';
 
 Vue.use(VueRx);
@@ -109,7 +109,7 @@ export default Vue.extend({
         throttleTime(this.throttleTime),
         tap(() => this.$emit('load-more')),
       ),
-    noScroll: timer(1000, 1000)
+    noScroll: timer(this.throttleTime, this.throttleTime)
       .pipe(
         filter(() => !this.hasScrollbar()),
         tap(() => this.$emit('load-more')),
