@@ -1,7 +1,7 @@
 <template>
 <div
   :class="direction"
-  v-stream:scroll="scroll$">
+  @scroll="scroll$.next()">
   <slot></slot>
 </div>
 </template>
@@ -38,26 +38,32 @@
 
 <script lang="ts">
 
-import { Subject, timer } from 'rxjs';
+import { Subject, Subscription, timer } from 'rxjs';
 import { filter, tap, throttleTime } from 'rxjs/operators';
 
-import Vue, { VueConstructor } from 'vue';
-import VueRx from 'vue-rx';
-
-Vue.use(VueRx);
-
-declare module 'vue/types/vue' {
-  interface Vue {
-    scroll$: Subject<void>;
-    reachedBottom: () => boolean;
-    hasScrollbar: () => boolean;
-    throttleTime: number;
-  }
-}
+import Vue, { VNode, VueConstructor } from 'vue';
 
 export default Vue.extend({
+  beforeDestroy() {
+    this.subscription.unsubscribe();
+  },
+  created() {
+    this.subscription.add(
+      this.scroll$.pipe(
+        filter(this.reachedBottom),
+        throttleTime(this.throttleTime),
+      ).subscribe(this.loadMore),
+    );
+
+    this.subscription.add(
+      timer(0, this.throttleTime)
+        .pipe(filter(() => !this.hasScrollbar()))
+        .subscribe(this.loadMore),
+    );
+  },
   data: () => ({
     scroll$: new Subject(),
+    subscription: new Subscription(),
   }),
   methods: {
     reachedBottom(): boolean {
@@ -84,6 +90,9 @@ export default Vue.extend({
         default: return true;
       }
     },
+    loadMore(): void {
+      this.$emit('load-more');
+    },
   },
   props: {
     direction: {
@@ -102,18 +111,5 @@ export default Vue.extend({
       type: Number,
     },
   },
-  subscriptions() { return {
-    loadMore: this.scroll$
-      .pipe(
-        filter(this.reachedBottom),
-        throttleTime(this.throttleTime),
-        tap(() => this.$emit('load-more')),
-      ),
-    noScroll: timer(this.throttleTime, this.throttleTime)
-      .pipe(
-        filter(() => !this.hasScrollbar()),
-        tap(() => this.$emit('load-more')),
-      ),
-  }; },
 });
 </script>

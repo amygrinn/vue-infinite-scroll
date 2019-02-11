@@ -1,6 +1,6 @@
 {
   "name": "@tygr/vue-infinite-scroll",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "description": "Infinite scroll component for VueJS",
   "keywords": [
     "continuous",
@@ -22,7 +22,7 @@
   "types": "index.d.ts",
   "scripts": {
     "build": "rimraf dist && webpack",
-    "publish": "npm publish --access public"
+    "pub": "npm publish --access public"
   },
   "devDependencies": {
     "@babel/core": "^7.1.6",
@@ -36,7 +36,6 @@
     "typescript": "^3.2.1",
     "vue": "~2.5.20",
     "vue-loader": "^15.4.2",
-    "vue-rx": "^6.0.1",
     "vue-template-compiler": "^2.5.17",
     "webpack": "^4.26.1",
     "webpack-cli": "^3.1.2",
@@ -44,8 +43,7 @@
     "webpack-node-externals": "^1.7.2"
   },
   "peerDependencies": {
-    "rxjs": "~6.3.3",
-    "vue": "~2.5.20",
-    "vue-rx": "~6.0.1"
+    "rxjs": "6",
+    "vue": "2"
   }
 }
