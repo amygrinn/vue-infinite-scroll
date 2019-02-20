@@ -38,7 +38,7 @@
 
 <script lang="ts">
 
-import { Subject, Subscription, timer } from 'rxjs';
+import { merge, Subject, Subscription, timer } from 'rxjs';
 import { filter, tap, throttleTime } from 'rxjs/operators';
 
 import Vue, { VNode, VueConstructor } from 'vue';
@@ -49,7 +49,7 @@ export default Vue.extend({
   },
   created() {
     this.subscription.add(
-      this.scroll$.pipe(
+      merge(this.scroll$, timer(0, this.throttleTime)).pipe(
         filter(this.reachedBottom),
         throttleTime(this.throttleTime),
       ).subscribe(this.loadMore),
