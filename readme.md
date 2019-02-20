@@ -71,3 +71,4 @@ For vertical scrolling (direction = 'down' | 'up'), a specified height is necess
 | direction     | String  | down    | The direction to scroll in order to load more items. Either 'down', 'up', 'left', or 'right'                              |
 | minDistance   | Number  | 10      | The buffer distance to triger the 'load-more' event in pixels. Increase this if the event is not triggering               |
 | throttleTime  | Number  | 1000    | The minimum amount of time between triggers of the 'load-more' event in milliseconds. Uses rxjs' 'throttleTime' operator  |
+| repeat        | boolean | false   | Whether to keep calling 'load-more' after reaching bottom even if user has not scrolled further                           |

@@ -2,7 +2,8 @@
 <body>
   <div id="app">
     <h2>Top to Bottom Infinite Scroll</h2>
-    <infinite-scroll @load-more="loadMore('down')">
+    <infinite-scroll
+      @load-more="loadMore('down')">
       
       <div v-for="i in down.numElements">Element: {{ i }}</div>
       <div v-if="down.loading">Loading...</div>
@@ -32,6 +33,14 @@
       <div v-if="left.loading">Loading...</div>
     </infinite-scroll>
 
+    <h2>Emit 'load-more' even without user input once it reaches bottom</h2>
+    <infinite-scroll
+      @load-more="fauxLoadMore('right')" direction="down" repeat>
+      
+      <div v-for="i in right.numElements">Element: {{ i }}</div>
+      <div v-if="right.loading">Loading...</div>
+    </infinite-scroll>
+
   </div>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script type="text/javascript" src="dist/vue-infinite-scroll.min.js"></script>
@@ -43,7 +52,7 @@
       el: '#app',
       data: {
         down: {
-          numElements: 3,
+          numElements: 33,
           loading: false
         },
         up: {
@@ -51,7 +60,7 @@
           loading: false
         },
         right: {
-          numElements: 3,
+          numElements: 33,
           loading: false
         },
         left: {
@@ -72,6 +81,10 @@
               2000
             );
           }
+        },
+        fauxLoadMore(direction) {
+          this[direction].loading = true
+          console.log('faux loading more...')
         }
       }
     });
